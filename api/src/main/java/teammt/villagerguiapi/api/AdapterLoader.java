@@ -2,6 +2,7 @@ package teammt.villagerguiapi.api;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import teammt.villagerguiapi.adapters.BaseAdapter;
 import teammt.villagerguiapi.classes.VillagerInventory;
 import teammt.villagerguiapi.utils.VersionUtils;
@@ -14,8 +15,12 @@ public class AdapterLoader {
 
     @Getter
     private static Class<? extends BaseAdapter> adapterClass;
+    @Getter
+    private static Plugin plugin;
 
-    public static void init() {
+    public static void init(Plugin plugin) {
+        AdapterLoader.plugin = plugin;
+
         String versionId;
         if (VersionUtils.isAtLeast(14)) {
             versionId = "next";

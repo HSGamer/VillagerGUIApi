@@ -18,6 +18,7 @@ import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
 
 import teammt.villagerguiapi.adapters.BaseAdapter;
+import teammt.villagerguiapi.api.AdapterLoader;
 import teammt.villagerguiapi.classes.VillagerInventory;
 import teammt.villagerguiapi.classes.VillagerTrade;
 import teammt.villagerguiapi.events.VillagerInventoryCloseEvent;
@@ -52,7 +53,7 @@ public class MerchantAdapter_next extends BaseAdapter implements Listener {
 
     public MerchantAdapter_next(VillagerInventory toAdapt) {
         super(toAdapt);
-        Bukkit.getServer().getPluginManager().registerEvents(this, toAdapt.getPlugin());
+        Bukkit.getServer().getPluginManager().registerEvents(this, AdapterLoader.getPlugin());
         try {
             wrapped = (Merchant) CRAFT_MERCHANT_CUSTOM_CONSTRUCTOR.newInstance(toAdapt.getName());
             CRAFT_MERCHANT_CUSTOM_SET_RECIPES_METHOD.invoke(wrapped, toNMSRecipes());

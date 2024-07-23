@@ -15,6 +15,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 import teammt.villagerguiapi.adapters.BaseAdapter;
+import teammt.villagerguiapi.api.AdapterLoader;
 import teammt.villagerguiapi.classes.VillagerInventory;
 import teammt.villagerguiapi.classes.VillagerTrade;
 import teammt.villagerguiapi.events.VillagerInventoryCloseEvent;
@@ -30,7 +31,7 @@ public class MerchantAdapter_v1_4_5 extends BaseAdapter implements IMerchant, Li
 
 	public MerchantAdapter_v1_4_5(VillagerInventory toAdapt) {
 		super(toAdapt);
-		Bukkit.getServer().getPluginManager().registerEvents(this, toAdapt.getPlugin());
+		Bukkit.getServer().getPluginManager().registerEvents(this, AdapterLoader.getPlugin());
 	}
 
 	@Override
