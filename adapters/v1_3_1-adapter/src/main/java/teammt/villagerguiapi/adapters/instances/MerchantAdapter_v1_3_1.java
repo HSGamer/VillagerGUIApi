@@ -30,8 +30,7 @@ public class MerchantAdapter_v1_3_1 extends BaseAdapter implements IMerchant, Li
 
 	public MerchantAdapter_v1_3_1(VillagerInventory toAdapt) {
 		super(toAdapt);
-		Bukkit.getServer().getPluginManager().registerEvents(this,
-				Bukkit.getPluginManager().getPlugin("VillagerGUIApi"));
+		Bukkit.getServer().getPluginManager().registerEvents(this, toAdapt.getPlugin());
 	}
 
 	@Override

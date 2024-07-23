@@ -52,8 +52,7 @@ public class MerchantAdapter_next extends BaseAdapter implements Listener {
 
     public MerchantAdapter_next(VillagerInventory toAdapt) {
         super(toAdapt);
-        Bukkit.getServer().getPluginManager().registerEvents(this,
-                org.bukkit.plugin.java.JavaPlugin.getProvidingPlugin(VillagerInventory.class));
+        Bukkit.getServer().getPluginManager().registerEvents(this, toAdapt.getPlugin());
         try {
             wrapped = (Merchant) CRAFT_MERCHANT_CUSTOM_CONSTRUCTOR.newInstance(toAdapt.getName());
             CRAFT_MERCHANT_CUSTOM_SET_RECIPES_METHOD.invoke(wrapped, toNMSRecipes());

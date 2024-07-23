@@ -3,49 +3,44 @@ package teammt.villagerguiapi.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import teammt.villagerguiapi.api.AdapterLoader;
 
+@Getter
 public class VillagerInventory {
-	private List<VillagerTrade> trades = new ArrayList<>();
-	private String name = "Sample text";
-	private Player forWho;
+	private final Plugin plugin;
 
-	public VillagerInventory(List<VillagerTrade> trades, Player forWho) {
-		super();
-		this.trades = trades;
-		this.forWho = forWho;
+	@Setter
+    private List<VillagerTrade> trades = new ArrayList<>();
+	@Setter
+    private String name = "Sample text";
+	@Setter
+    private Player forWho;
+
+	public VillagerInventory(Plugin plugin) {
+		this.plugin = plugin;
 	}
 
 	public VillagerInventory() {
+		this(JavaPlugin.getProvidingPlugin(VillagerInventory.class));
 	}
 
-	public Player getForWho() {
-		return forWho;
-	}
-
-	public void setForWho(Player forWho) {
+	public VillagerInventory(Plugin plugin, List<VillagerTrade> trades, Player forWho) {
+		this(plugin);
+        this.trades = trades;
 		this.forWho = forWho;
 	}
 
-	public List<VillagerTrade> getTrades() {
-		return trades;
+	public VillagerInventory(List<VillagerTrade> trades, Player forWho) {
+		this(JavaPlugin.getProvidingPlugin(VillagerInventory.class), trades, forWho);
 	}
 
-	public void setTrades(List<VillagerTrade> trades) {
-		this.trades = trades;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void open() {
+    public void open() {
 		AdapterLoader.open(this);
 	}
 }
