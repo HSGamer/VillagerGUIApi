@@ -18,11 +18,7 @@ public class AdapterLoader {
     public static void init() {
         String versionId;
         if (VersionUtils.isAtLeast(14)) {
-            if (VersionUtils.isCraftBukkitMapped()) {
-                versionId = "next";
-            } else {
-                versionId = "remapped";
-            }
+            versionId = "next";
         } else {
             String v = Bukkit.getServer().getClass().getPackage().getName();
             v = v.substring(v.lastIndexOf('.') + 1);
