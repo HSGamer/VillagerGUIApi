@@ -1,10 +1,10 @@
 package teammt.villagerguiapi.api;
 
-import org.bukkit.Bukkit;
-
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import teammt.villagerguiapi.adapters.BaseAdapter;
 import teammt.villagerguiapi.classes.VillagerInventory;
+import teammt.villagerguiapi.utils.VersionUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,39 +15,44 @@ public class AdapterLoader {
     @Getter
     private static Class<? extends BaseAdapter> adapterClass;
 
-    public static void init(){
-        String version = getVersion();
+    public static void init() {
+        String versionId;
+        if (VersionUtils.isAtLeast(14)) {
+            if (VersionUtils.isCraftBukkitMapped()) {
+                versionId = "next";
+            } else {
+                versionId = "remapped";
+            }
+        } else {
+            String v = Bukkit.getServer().getClass().getPackage().getName();
+            v = v.substring(v.lastIndexOf('.') + 1);
+            if (!v.equals("craftbukkit"))
+                versionId = v;
+            else {
+                String result = "UNK";
+                InputStream stream = Bukkit.class.getClassLoader()
+                        .getResourceAsStream("META-INF/maven/org.bukkit/bukkit/pom.properties");
+                Properties properties = new Properties();
+                if (stream != null) {
+                    try {
+                        properties.load(stream);
+                        result = properties.getProperty("version");
+                        result = "v" + result.split("-")[0].replace('.', '_');
+                    } catch (IOException ignored) {
+                    }
+                }
+                versionId = result;
+            }
+        }
+
         Class<? extends BaseAdapter> clazz;
         try {
-            Class<?> c = Class.forName("teammt.villagerguiapi.adapters.instances.MerchantAdapter_" + version);
+            Class<?> c = Class.forName("teammt.villagerguiapi.adapters.instances.MerchantAdapter_" + versionId);
             clazz = c.asSubclass(BaseAdapter.class);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Could not find adapter for " + getVersion(), e);
+            throw new RuntimeException("Could not find adapter for " + Bukkit.getVersion(), e);
         }
         adapterClass = clazz;
-    }
-
-    public static String getVersion() {
-        String v = Bukkit.getServer().getClass().getPackage().getName();
-        v = v.substring(v.lastIndexOf('.') + 1);
-        if (!v.equals("craftbukkit"))
-            return v;
-        else {
-            String result = "UNK";
-            InputStream stream = Bukkit.class.getClassLoader()
-                    .getResourceAsStream("META-INF/maven/org.bukkit/bukkit/pom.properties");
-            Properties properties = new Properties();
-            if (stream != null) {
-                try {
-                    properties.load(stream);
-                    result = properties.getProperty("version");
-                    result = "v" + result.split("-")[0].replace('.', '_');
-                } catch (IOException ex) {
-                    return "UNK";
-                }
-            }
-            return result;
-        }
     }
 
     public static void open(VillagerInventory inv) {
