@@ -54,18 +54,11 @@
                         <configuration>
                             <createDependencyReducedPom>true</createDependencyReducedPom>
                             <shadedArtifactAttached>false</shadedArtifactAttached>
-                            <filters>
-                                <filter>
-                                    <artifact>com.github.cryptomorin:XSeries</artifact>
-                                    <includes>
-                                        <include>com/cryptomorin/xseries/inventory/**</include>
-                                    </includes>
-                                </filter>
-                            </filters>
+                            <minimizeJar>true</minimizeJar>
                             <relocations>
                                 <relocation>
-                                    <pattern>com.cryptomorin.xseries.inventory</pattern>
-                                    <shadedPattern>teammt.villagerguiapi.adapters.instances.inventory</shadedPattern>
+                                    <pattern>com.cryptomorin.xseries</pattern>
+                                    <shadedPattern>teammt.villagerguiapi.adapters.xseries</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
