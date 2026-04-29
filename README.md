@@ -10,13 +10,7 @@ Have you ever tried to create a custom Villager GUI without a villager in Spigot
   - 1.11, 1.11.1, 1.11.2
   - 1.12, 1.12.1, 1.12.2
   - 1.13, 1.13.1, 1.13.2
-  - 1.14, 1.14.1, 1.14.2, 1.14.3, 1.14.4
-  - 1.15, 1.15.1, 1.15.2
-  - 1.16, 1.16.1, 1.16.2, 1.16.3, 1.16.4, 1.16.5
-  - 1.17, 1.17.1
-  - 1.18, 1.18.1, 1.18.2
-  - 1.19, 1.19.1, 1.19.2, 1.19.3
-  - 1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4
+  - After 1.13
 
 # Goal of the project
 The goal of this library is to provide a unified API for developers to create Villagers GUI Containers and have the events to manipulate them and create different plugins with it. 
