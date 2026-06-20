@@ -5,8 +5,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cryptomorin.xseries.inventory.BukkitInventoryView;
-import com.cryptomorin.xseries.inventory.XInventoryView;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,6 +13,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
@@ -90,9 +89,9 @@ public class MerchantAdapter_next extends BaseAdapter implements Listener {
             if (event.getRawSlot() == -999)
                 return;
             if (event.getRawSlot() == 2 && !event.getCurrentItem().getType().equals(Material.AIR)) {
-                BukkitInventoryView xInventoryView = XInventoryView.of(this.toAdapt.getForWho().getOpenInventory());
-                ItemStack itemOne = xInventoryView.getTopInventory().getItem(0);
-                ItemStack itemTwo = xInventoryView.getTopInventory().getItem(1);
+                InventoryView inventoryView = this.toAdapt.getForWho().getOpenInventory();
+                ItemStack itemOne = XInventoryView.getTopInventory(inventoryView).getItem(0);
+                ItemStack itemTwo = XInventoryView.getTopInventory(inventoryView).getItem(1);
                 ItemStack result = event.getCurrentItem();
                 VillagerTradeCompleteEvent completeEvent = new VillagerTradeCompleteEvent(toAdapt,
                         (Player) event.getWhoClicked(), new VillagerTrade(itemOne, itemTwo, result, -1));
